@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave a Review</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Leave a Review for {{ book.title }}</h1>
+
+    <form method="POST">
+        <label for="rating">Rating (1-5):</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" required>
+
+        <label for="written_review">Review:</label>
+        <textarea id="written_review" name="written_review" rows="4" cols="50"></textarea>
+
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <a href="{{ url_for('search_data', search_query=search_query, sort_by=sort_by, sort_order=sort_order) }}">
+        <button type="button">Back to Search Results</button>
+    </a>
+</body>
+</html>
