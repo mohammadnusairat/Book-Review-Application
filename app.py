@@ -15,7 +15,8 @@ db_config = {
     'host': os.getenv('MYSQLHOST', 'localhost'),
     'user': os.getenv('MYSQLUSER', 'root'),
     'password': os.getenv('MYSQLPASSWORD', ''),
-    'database': os.getenv('MYSQLDATABASE', 'book_reviews')
+    'database': os.getenv('MYSQLDATABASE', 'book_reviews'),
+    'port': int(os.getenv('MYSQLPORT', 3306))
 }
 
 # Connect to MySQL
@@ -84,7 +85,6 @@ def login():
         try:
             connection = get_db_connection()
             cursor = connection.cursor(dictionary=True)
-
             cursor.execute("SELECT * FROM Users WHERE email_address = %s", (email,))
             user = cursor.fetchone()
 
@@ -95,6 +95,10 @@ def login():
                 return redirect(url_for('search_data'))
             else:
                 flash('Invalid credentials. Please try again.', 'danger')
+        except Exception as e:
+            print(f"[ERROR] Failed DB connection or query: {e}")
+            flash("Database error occurred.", "danger")
+            return render_template("login.html")
         finally:
             # Close resources if they exist
             if 'cursor' in locals() and cursor:
