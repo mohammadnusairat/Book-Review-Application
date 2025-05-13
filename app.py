@@ -1,5 +1,6 @@
 import hashlib
 import hmac
+import os
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import mysql.connector
@@ -11,12 +12,10 @@ app.secret_key = 'CS480_FINAL_PROJECT_SECRET_KEY'  # Replace with a strong secre
 
 # Database configuration
 db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    #add your passward from mysql
-    'password': '2004', #Insert your own,
-    'database': 'book_reviews',
-    #'auth_plugin':'mysql_native_password'
+    'host': os.getenv('MYSQLHOST', 'localhost'),
+    'user': os.getenv('MYSQLUSER', 'root'),
+    'password': os.getenv('MYSQLPASSWORD', ''),
+    'database': os.getenv('MYSQLDATABASE', 'book_reviews')
 }
 
 # Connect to MySQL
