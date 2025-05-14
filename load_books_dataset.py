@@ -1,5 +1,6 @@
 import pandas as pd
 import mysql.connector
+import os
 
 # Load the dataset
 df = pd.read_csv('books_dataset.csv')
@@ -12,22 +13,24 @@ required_columns = ['isbn', 'title', 'author', 'genre', 'publisher', 'publicatio
 if not all(column in df.columns for column in required_columns):
     raise ValueError(f"CSV file is missing one or more required columns: {required_columns}")
 
-# Ask for MySQL Password
-mySQLpassword = input("Please Enter Your MySQL Password: ") 
-
-# Connect to the database
+# Railway connection settings
 connection = mysql.connector.connect(
-    host='localhost',
+    host='trolley.proxy.rlwy.net',
+    port=35708,
     user='root',
-    password=mySQLpassword,  # Replace with your MySQL password
-    database='book_reviews'
+    password='',  # Use real Railway password. This is safe for a local script — don’t commit to GitHub
+    database='railway'
 )
+
 cursor = connection.cursor()
 
 # Insert data into the database
 for _, row in df.iterrows():
     cursor.execute(
-        "INSERT INTO Books (isbn, title, author, genre, publisher, publication_year, page_count) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+        """
+        INSERT IGNORE INTO Books (isbn, title, author, genre, publisher, publication_year, page_count)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """,
         (row['isbn'], row['title'], row['author'], row['genre'], row['publisher'], row['publicationyear'], row['pagecount'])
     )
 
@@ -36,4 +39,4 @@ connection.commit()
 cursor.close()
 connection.close()
 
-print("Books dataset loaded successfully!")
+print("Books dataset loaded to Railway DB successfully!")
