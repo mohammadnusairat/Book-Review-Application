@@ -8,6 +8,8 @@ This project is a full-stack **Flask-based web application** that enables users 
 
 The app uses a **MySQL database**, with structured schema defined in SQL and populated from a CSV dataset. It supports standard and advanced search queries, average rating calculations, and secure password handling using SHA-256.
 
+> 🧠 This project is designed to showcase proficiency in **relational database design**, **complex SQL querying**, and **cloud deployment using Railway**.
+
 ---
 
 ## 🌟 Key Features
@@ -59,6 +61,28 @@ The app uses a **MySQL database**, with structured schema defined in SQL and pop
 
 ---
 
+## ☁️ Cloud Deployment & SQL Emphasis
+
+### 🚄 Railway-Powered Deployment
+This app is fully deployed using [Railway](https://railway.app), a developer-first cloud platform. The following were configured in production:
+- Hosted Flask app via GitHub integration
+- Railway-managed **MySQL** database with persistent storage
+- Environment variables used for secure DB connection in `app.py`
+- External SQL client access via public host/port credentials
+
+### 🧠 SQL-Focused Design
+- **Schema-first** approach: all tables (`Users`, `Books`, `Reviews`, etc.) created via raw SQL in `Book_Review_App_DB.sql`
+- Designed and optimized for:
+  - `JOIN`s (user-to-review, book-to-review)
+  - `GROUP BY` + `AVG()` for average rating calculations
+  - Dynamic search queries with `LIKE`, `ORDER BY`, and filter chaining
+- Book data imported via a custom Python → MySQL loader using `pandas` and `mysql.connector`
+- Testing included raw `SHOW TABLES`, `INSERT`, `SELECT`, and query plan observation from MySQL CLI
+
+This project was built intentionally as a **hands-on demonstration of SQL and cloud deployment proficiency**.
+
+---
+
 ## 📁 Project Structure
 
 ```bash
@@ -77,41 +101,16 @@ The app uses a **MySQL database**, with structured schema defined in SQL and pop
 │   ├── add_review.html       # Review submission form
 │   ├── add_book.html         # Admin add-book form
 │   └── write_review.html     # Alternative review form
+├── requirements.txt
+├── Procfile
+├── runtime.txt
 └── README.md                 # Project documentation
 ```
 
-## 🧪 Setup & Usage
+## 🧪 Live Link
 
-### 1. 🗃️ Database Setup
-Run the schema file in MySQL:
-
-```sql
-SOURCE Book_Review_App_DB.sql;
-```
-
-### 2. 🧰 Install Dependencies
-
-```bash
-pip install flask mysql-connector-python pandas
-```
-
-### 3. 🧾 Load the Dataset
-
-```bash
-python load_books_dataset.py
-```
-
-Enter your MySQL password when prompted.
-
-### 4. 🚀 Run the App
-
-```bash
-python app.py
-```
-
-Then navigate to [http://localhost:5000](http://localhost:5000) in your browser.
-
----
+https://web-production-0014.up.railway.app/\
+*Deployed with Railway and powered by a cloud-hosted MySQL database.*
 
 ## 🛠️ Future Improvements
 
