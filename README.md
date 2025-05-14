@@ -101,9 +101,9 @@ This project was built intentionally as a **hands-on demonstration of SQL and cl
 │   ├── add_review.html       # Review submission form
 │   ├── add_book.html         # Admin add-book form
 │   └── write_review.html     # Alternative review form
-├── requirements.txt
-├── Procfile
-├── runtime.txt
+├── requirements.txt          # Python package dependencies for the app
+├── Procfile                  # Specifies the command to run the app on Railway
+├── runtime.txt               # Specifies the Python version for deployment
 └── README.md                 # Project documentation
 ```
 
