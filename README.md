@@ -109,8 +109,8 @@ This project was built intentionally as a **hands-on demonstration of SQL and cl
 
 ## 🧪 Live Link
 
-https://web-production-0014.up.railway.app/\
-*Deployed with Railway and powered by a cloud-hosted MySQL database.*
+[Live App](https://web-production-0014.up.railway.app)  
+_Deployed with Railway and powered by a cloud-hosted MySQL database._
 
 ## 🛠️ Future Improvements
 
