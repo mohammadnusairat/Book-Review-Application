@@ -44,32 +44,30 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        # Hash the password
         hashed_password = hash_password(password)
-
-        # Debug: Print user details
         print(f"Attempting to register: {username}, {email}, {hashed_password}")
 
-        # Insert the user into the database
-        connection = get_db_connection()
-        cursor = connection.cursor()
-
         try:
+            connection = get_db_connection()
+            cursor = connection.cursor()
             cursor.execute(
                 "INSERT INTO Users (username, email_address, password) VALUES (%s, %s, %s)",
                 (username, email, hashed_password)
             )
-            connection.commit()  # Commit changes to the database
+            connection.commit()
             print("User successfully inserted into the database.")
             flash('Registration successful! Please log in.', 'success')
             return redirect(url_for('login'))
+
         except mysql.connector.Error as err:
-            # Debug: Log the error
-            print(f"Database error: {err}")
-            flash('Error: ' + str(err), 'danger')
+            print(f"[REGISTER ERROR] {err}")
+            flash(f'Registration failed: {err}', 'danger')
+
         finally:
-            cursor.close()
-            connection.close()
+            if 'cursor' in locals() and cursor:
+                cursor.close()
+            if 'connection' in locals() and connection:
+                connection.close()
 
     return render_template('register.html')
 
